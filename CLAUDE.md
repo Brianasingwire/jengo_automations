@@ -55,7 +55,18 @@ The contact form → `routes.contact` → `leads.build_payload` → `leads.send_
 
 ## Config / deploy
 
-The environment variables are listed in `.env.example` (`SECRET_KEY`, `MAKE_WEBHOOK_URL`, `SITE_URL`, `CONTACT_EMAIL`, `TRUSTED_PROXY_COUNT`, `RATELIMIT_STORAGE_URI`, `HSTS_INCLUDE_SUBDOMAINS`, `FLASK_DEBUG`). The first four are required in production. Railway uses the `Procfile`, and Render uses `render.yaml`. Both run `gunicorn wsgi:app`. The health check is `/healthz`.
+Environment variables. Set them on Railway/Render, or locally in `.env`. Env files, including any `.env.example`, are gitignored and must not be committed.
+
+| Variable | Required in production | Notes |
+|---|---|---|
+| `SECRET_KEY` | yes | Long random string: `python -c "import secrets; print(secrets.token_hex(32))"` |
+| `MAKE_WEBHOOK_URL` | yes | Make.com Custom Webhook URL. It's a credential, so never commit or log it. Without it in local dev, leads are only logged. |
+| `SITE_URL` | yes | Public origin, no trailing slash. Used for canonical URLs, Open Graph and the sitemap. Refused if localhost. |
+| `CONTACT_EMAIL` | yes | Shown on the site. Refused if it's the `.example` placeholder. |
+| `TRUSTED_PROXY_COUNT` | no (default 1) | Proxy hops in front of the app: 1 on Railway/Render. Raise it if you add a CDN like Cloudflare. |
+| `RATELIMIT_STORAGE_URI` | no (default `memory://`) | `redis://...` to share rate limits across workers. |
+| `HSTS_INCLUDE_SUBDOMAINS` | no (default 0) | `1` only once every subdomain serves HTTPS. |
+| `FLASK_DEBUG` | no (default 0) | `1` for local development only. | Railway uses the `Procfile`, and Render uses `render.yaml`. Both run `gunicorn wsgi:app`. The health check is `/healthz`.
 
 Tests use `create_app({...})` overrides with CSRF and rate limiting disabled and `MIN_FORM_FILL_SECONDS=0` (see `tests/conftest.py`), and mock `app.leads.requests.post`. Contact POSTs need a signed `started` value: use `tests.util.form_data(client, data)`, which GETs the form first like a browser would. `test_option_ids_are_pinned` pins the webhook contract.
 

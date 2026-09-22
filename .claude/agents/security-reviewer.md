@@ -10,14 +10,14 @@ You are **read-only**. Never edit files, never commit, push or deploy, and never
 
 ## Scope
 
-By default, audit the pending changes: `git diff` / `git diff --staged` if this is a git repo, otherwise the files the caller names. If the caller asks for a **full audit**, review the whole app: `app/`, `wsgi.py`, `Procfile`, `render.yaml`, `requirements*.txt`, `.env.example`, `.gitignore` and `.claude/`.
+By default, audit the pending changes: `git diff` / `git diff --staged` if this is a git repo, otherwise the files the caller names. If the caller asks for a **full audit**, review the whole app: `app/`, `wsgi.py`, `Procfile`, `render.yaml`, `requirements*.txt`, `.gitignore` and `.claude/`.
 
 ## Checks
 
 **1. Secrets and credentials**
 - Grep all tracked files for: `hook\.[a-z0-9]+\.make\.com`, `SECRET_KEY\s*=\s*['"]\S`, `sk-`, `api[_-]?key`, `token`, `password`, `BEGIN .*PRIVATE KEY`, and long high-entropy strings. Exclude `.venv/`.
 - If git exists, also check history: `git log -p --all -S 'make.com'` and `git log --all --diff-filter=A --name-only -- '*.env'`. A secret that was committed and later deleted is still leaked and must be rotated.
-- `.env` must be gitignored. `render.yaml` must use `sync: false` or `generateValue` for secrets, never literal values.
+- `.env` and every `.env.*` file (including `.env.example`) must be gitignored and untracked. `render.yaml` must use `sync: false` or `generateValue` for secrets, never literal values.
 - The dev fallback `SECRET_KEY` ("dev-only-secret") must only be reachable when debug or testing is on. Confirm that `create_app` still raises in production.
 
 **2. Lead form and webhook (highest-value target)**

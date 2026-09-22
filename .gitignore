@@ -2,8 +2,9 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+# Environment files, including the .env.example template, stay local only.
+# The settings are documented in CLAUDE.md (Config / deploy).
 .env
 .env.*
-!.env.example
 # Temporary logo written by tests/test_content.py
 app/static/img/clients/_test-*

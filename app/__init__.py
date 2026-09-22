@@ -188,7 +188,7 @@ def check_production_config(config):
     if config["CONTACT_EMAIL"].endswith(".example"):
         problems.append(f"CONTACT_EMAIL is the placeholder {config['CONTACT_EMAIL']}")
     if problems:
-        raise RuntimeError("Refusing to start in production: " + "; ".join(problems) + ". See .env.example.")
+        raise RuntimeError("Refusing to start in production: " + "; ".join(problems) + ". See the Config / deploy section of CLAUDE.md.")
 
 
 def site_content():
