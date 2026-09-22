@@ -12,6 +12,7 @@ def app():
         "MIN_FORM_FILL_SECONDS": 0,
         "MAKE_WEBHOOK_URL": "https://hook.test/abc",
         "SITE_URL": "https://jengo.test",
+        "RATELIMIT_ENABLED": False,
     })
 
 

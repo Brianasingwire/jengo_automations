@@ -31,8 +31,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap">
   <link rel="stylesheet" href="{{ asset_url('css/site.css') }}">
 
-  <script>if ("IntersectionObserver" in window) document.documentElement.classList.add("js")</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.4/dist/cdn.min.js"></script>
+  <script nonce="{{ csp_nonce }}">if ("IntersectionObserver" in window) document.documentElement.classList.add("js")</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.4/dist/cdn.min.js" integrity="sha384-5/joNqFnRyVWzXp99bHot6RHG+EksGp+USSgZwPar7T9SD9PKKER37n/8bXBAZGd" crossorigin="anonymous"></script>
 
   <script type="application/ld+json">
   {{ {
@@ -61,7 +61,7 @@
 
   {% include "partials/_footer.html" %}
 
-  <script>
+  <script nonce="{{ csp_nonce }}">
     // Fade .reveal elements in as they scroll into view (see input.css).
     (function () {
       if (!("IntersectionObserver" in window)) return;

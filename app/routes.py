@@ -12,7 +12,7 @@ from flask import (
     url_for,
 )
 
-from . import content
+from . import content, limiter
 from .forms import ContactForm
 from .leads import SERVICE_OPTIONS, build_payload, send_lead
 
@@ -75,6 +75,7 @@ def about():
 
 
 @bp.route("/contact", methods=["GET", "POST"])
+@limiter.limit(lambda: current_app.config["CONTACT_RATE_LIMIT"], methods=["POST"])
 def contact():
     form = ContactForm()
     # Allow deep links like /contact?service=ai_agents to preselect a service.

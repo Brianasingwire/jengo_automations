@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Too many requests{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container-page max-w-xl text-center">
+    <p class="font-mono text-sm font-semibold text-brand-600">429</p>
+    <h1 class="mt-4 text-4xl">Too many submissions</h1>
+    <p class="lead-text mt-4">
+      We've received several messages from your connection in a short time. Please try again later, or email us at
+      <a class="font-semibold text-brand-600" href="mailto:{{ contact_email }}">{{ contact_email }}</a>.
+    </p>
+  </div>
+</section>
+{% endblock %}

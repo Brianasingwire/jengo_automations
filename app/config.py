@@ -16,6 +16,16 @@ class Config:
     # Submissions faster than this after the form was rendered are treated as bots.
     MIN_FORM_FILL_SECONDS = 3
 
+    # Per-IP cap on contact form POSTs (each accepted lead costs Make operations).
+    CONTACT_RATE_LIMIT = "10 per hour;30 per day"
+    RATELIMIT_ENABLED = True
+    # memory:// is per gunicorn worker and resets on deploy; use redis://... to share it.
+    RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
+    RATELIMIT_HEADERS_ENABLED = False
+
+    # Reverse proxies in front of the app (Railway/Render: 1). 0 disables ProxyFix.
+    TRUSTED_PROXY_COUNT = int(os.environ.get("TRUSTED_PROXY_COUNT", "1"))
+
     # Static assets are cache-busted by content hash (see asset_url), so cache aggressively.
     SEND_FILE_MAX_AGE_DEFAULT = 60 * 60 * 24 * 365
 
