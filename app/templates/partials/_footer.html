@@ -1,0 +1,33 @@
+<footer class="bg-ink-950 text-slate-400">
+  <div class="container-page grid gap-10 py-14 md:grid-cols-4">
+    <div class="md:col-span-2">
+      <a href="{{ url_for('main.home') }}" class="flex items-center gap-2.5 text-lg font-bold text-white">
+        <img src="{{ asset_url('img/favicon.svg') }}" alt="" width="28" height="28" class="size-7" loading="lazy">
+        {{ site_name }}
+      </a>
+      <p class="mt-4 max-w-sm text-sm leading-relaxed">
+        AI automation agency based in Kampala, Uganda, building for growing businesses at home and abroad.
+      </p>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold text-white">Company</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li><a class="hover:text-white" href="{{ url_for('main.services') }}">Services</a></li>
+        <li><a class="hover:text-white" href="{{ url_for('main.how_it_works') }}">How it works</a></li>
+        <li><a class="hover:text-white" href="{{ url_for('main.about') }}">About</a></li>
+        <li><a class="hover:text-white" href="{{ url_for('main.contact') }}">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-sm font-semibold text-white">Get in touch</h2>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        <li class="flex items-center gap-2">{{ icon("mail", "size-4 shrink-0") }}<a class="hover:text-white" href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
+        <li class="flex items-center gap-2">{{ icon("pin", "size-4 shrink-0") }}Kampala, Uganda</li>
+        <li class="flex items-center gap-2">{{ icon("clock", "size-4 shrink-0") }}EAT (UTC+3)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <p class="container-page py-6 text-xs">&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
+  </div>
+</footer>

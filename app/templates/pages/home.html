@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block description %}Jengo is an AI automation agency that builds workflow automations, AI agents and lead-generation systems for growing businesses in Uganda and internationally, from Kampala to London, New York and Sydney. Fixed-price builds that you own.{% endblock %}
+
+{% block content %}
+{# ---------- Hero ---------- #}
+<section class="relative overflow-hidden bg-ink-900">
+  <div class="grid-pattern absolute inset-0" aria-hidden="true"></div>
+  <div class="hero-glow absolute inset-0" aria-hidden="true"></div>
+  <div class="container-page relative grid items-center gap-14 py-20 sm:py-28 lg:grid-cols-[1.1fr_1fr]">
+    <div>
+      <p class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-300">
+        <span class="size-1.5 rounded-full bg-accent-400"></span> AI automation agency · Kampala-based, working worldwide
+      </p>
+      <h1 class="mt-6 text-4xl leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+        Automate the busywork.<br>
+        <span class="bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text text-transparent">Grow without adding headcount.</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
+        We design and build AI automations that take repetitive work off your team's plate: lead handling, support, reporting, document processing and the handoffs between your tools.
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a href="{{ url_for('main.contact') }}" class="btn-primary">Start a project {{ icon("arrow-right", "size-4") }}</a>
+        <a href="{{ url_for('main.services') }}" class="btn-ghost-dark">Explore services</a>
+      </div>
+      <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-400">
+        <li class="flex items-center gap-2">{{ icon("check", "size-4 text-accent-400") }}Fixed-price projects</li>
+        <li class="flex items-center gap-2">{{ icon("check", "size-4 text-accent-400") }}You own everything we build</li>
+        <li class="flex items-center gap-2">{{ icon("check", "size-4 text-accent-400") }}Reply within one business day</li>
+      </ul>
+    </div>
+
+    {# Illustrative automation run: built in HTML so it's crisp, lightweight and accessible. #}
+    <figure class="relative mx-auto w-full max-w-md" aria-label="Example: an automated lead pipeline processing a new enquiry">
+      <div class="rounded-2xl border border-white/10 bg-ink-800/80 p-5 shadow-2xl shadow-black/40 backdrop-blur">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4">
+          <p class="text-sm font-semibold text-white">New lead pipeline</p>
+          <span class="flex items-center gap-1.5 rounded-full bg-accent-500/15 px-2.5 py-1 text-xs font-medium text-accent-300">
+            <span class="size-1.5 animate-pulse rounded-full bg-accent-400"></span> Live
+          </span>
+        </div>
+        <ol class="mt-4 space-y-3">
+          {% for step_icon, title, detail, badge in [
+            ("bolt", "Form submitted", "Website enquiry received", "0.2s"),
+            ("calculator", "Lead scored", "Service fit · budget · timeline", "86 / 100"),
+            ("database", "Lead ID assigned", "Logged to the sales pipeline", "JG-0142"),
+            ("bell", "Sales alerted", "Hot lead → Slack + email", "Sent"),
+          ] %}
+          <li class="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-3">
+            <span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-500/15 text-brand-300">{{ icon(step_icon, "size-5") }}</span>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-medium text-white">{{ title }}</p>
+              <p class="truncate text-xs text-slate-400">{{ detail }}</p>
+            </div>
+            <span class="shrink-0 rounded-md bg-white/5 px-2 py-1 font-mono text-xs text-slate-300">{{ badge }}</span>
+          </li>
+          {% endfor %}
+        </ol>
+        <p class="mt-4 text-center text-xs text-slate-500">Total time from enquiry to sales alert: under a minute</p>
+      </div>
+      <figcaption class="sr-only">An example automation: a form submission is scored, assigned an ID, logged and sent to sales in under a minute.</figcaption>
+    </figure>
+  </div>
+</section>
+
+{# ---------- Tools strip ---------- #}
+<section class="border-b border-slate-200 bg-slate-50">
+  <div class="container-page py-8">
+    <p class="text-center text-xs font-semibold tracking-wider text-slate-500 uppercase">We build on the platforms you already use</p>
+    <ul class="mt-5 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm font-semibold text-slate-400">
+      {% for tool in tools %}<li>{{ tool }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ---------- Value proposition ---------- #}
+<section class="section">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <p class="eyebrow">Why automate with Jengo</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">Automation that pays for itself and keeps working after launch</h2>
+      <p class="lead-text mt-4">Most automation projects fail quietly: a scenario breaks, nobody notices, and the team drifts back to spreadsheets. We build for reliability and ownership from day one.</p>
+    </div>
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      {% for pillar_icon, title, body in [
+        ("calculator", "Priced up front", "Every build starts with a written blueprint and a fixed price. You know what you're getting, what it costs and what it should save before any work starts."),
+        ("shield", "Built not to break", "Error handling, retries and alerting come as standard. If something upstream changes, the right person hears about it before your customers do."),
+        ("key", "Yours to keep", "We build in your accounts, document every workflow and record walkthroughs. You're never locked in to us, or to any single platform."),
+      ] %}
+      <div class="card reveal">
+        <span class="icon-tile">{{ icon(pillar_icon) }}</span>
+        <h3 class="mt-5 text-lg">{{ title }}</h3>
+        <p class="mt-2 leading-relaxed text-slate-600">{{ body }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ---------- Services overview ---------- #}
+<section class="section bg-slate-50">
+  <div class="container-page">
+    <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div class="max-w-2xl">
+        <p class="eyebrow">Services</p>
+        <h2 class="mt-3 text-3xl sm:text-4xl">What we automate</h2>
+        <p class="lead-text mt-4">From one high-impact workflow to an AI layer across your whole operation.</p>
+      </div>
+      <a href="{{ url_for('main.services') }}" class="btn-secondary self-start md:self-auto">All services {{ icon("arrow-right", "size-4") }}</a>
+    </div>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for s in services %}
+      <a href="{{ url_for('main.services') }}#{{ s.id }}" class="card reveal group transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
+        <span class="icon-tile">{{ icon(s.icon) }}</span>
+        <h3 class="mt-5 text-lg group-hover:text-brand-600">{{ s.name }}</h3>
+        <p class="mt-2 leading-relaxed text-slate-600">{{ s.summary }}</p>
+        <span class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-600">Learn more {{ icon("arrow-right", "size-4 transition group-hover:translate-x-0.5") }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ---------- Process teaser ---------- #}
+<section class="section">
+  <div class="container-page grid gap-14 lg:grid-cols-[1fr_1.3fr]">
+    <div class="reveal">
+      <p class="eyebrow">How it works</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">From first call to live automation in weeks, not months</h2>
+      <p class="lead-text mt-4">A clear, fixed-scope process built for remote collaboration across time zones.</p>
+      <a href="{{ url_for('main.how_it_works') }}" class="btn-secondary mt-8">See our process and a real example {{ icon("arrow-right", "size-4") }}</a>
+    </div>
+    <ol class="space-y-4">
+      {% for step in process %}
+      <li class="reveal flex gap-5 rounded-2xl border border-slate-200 p-5">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-ink-900 text-sm font-bold text-white">{{ loop.index }}</span>
+        <div>
+          <h3 class="text-base">{{ step.name }} <span class="ml-1 text-sm font-medium text-slate-400">· {{ step.duration }}</span></h3>
+          <p class="mt-1 text-slate-600">{{ step.body }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ---------- FAQ ---------- #}
+<section class="section bg-slate-50">
+  <div class="container-page max-w-3xl">
+    <div class="reveal text-center">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">Common questions</h2>
+    </div>
+    <div class="mt-10 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {% for f in faqs %}
+      <details class="group p-6">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
+          {{ f.q }}
+          <span class="text-slate-400 transition group-open:rotate-45" aria-hidden="true">
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+        </summary>
+        <p class="mt-3 leading-relaxed text-slate-600">{{ f.a }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "partials/_cta.html" %}
+{% endblock %}
+

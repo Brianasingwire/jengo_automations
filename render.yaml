@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: jengo-site
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 2 --access-logfile -
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MAKE_WEBHOOK_URL
+        sync: false
+      - key: SITE_URL
+        sync: false
+      - key: CONTACT_EMAIL
+        sync: false

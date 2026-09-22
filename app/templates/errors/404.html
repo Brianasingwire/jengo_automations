@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Page not found{% endblock %}
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container-page max-w-xl text-center">
+    <p class="font-mono text-sm font-semibold text-brand-600">404</p>
+    <h1 class="mt-4 text-4xl">This page doesn't exist</h1>
+    <p class="lead-text mt-4">The link may be broken, or the page may have moved.</p>
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+      <a href="{{ url_for('main.home') }}" class="btn-primary">Go to home</a>
+      <a href="{{ url_for('main.services') }}" class="btn-secondary">View services</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

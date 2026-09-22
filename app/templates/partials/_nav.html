@@ -1,0 +1,44 @@
+{%- set nav_links = [
+  ("main.services", "Services"),
+  ("main.how_it_works", "How it works"),
+  ("main.about", "About"),
+] -%}
+<header x-data="{ open: false }" @keydown.escape.window="open = false" class="sticky top-0 z-40 border-b border-white/10 bg-ink-900/90 backdrop-blur supports-[backdrop-filter]:bg-ink-900/75">
+  <nav class="container-page flex h-16 items-center justify-between" aria-label="Main">
+    <a href="{{ url_for('main.home') }}" class="flex items-center gap-2.5 text-lg font-bold text-white">
+      <img src="{{ asset_url('img/favicon.svg') }}" alt="" width="28" height="28" class="size-7">
+      {{ site_name }}
+    </a>
+
+    <ul class="hidden items-center gap-8 md:flex">
+      {% for endpoint, label in nav_links %}
+      <li>
+        <a href="{{ url_for(endpoint) }}"
+           class="text-sm font-medium transition-colors {{ 'text-white' if request.endpoint == endpoint else 'text-slate-300 hover:text-white' }}"
+           {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ label }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="{{ url_for('main.contact') }}" class="btn-primary hidden !px-5 !py-2.5 sm:inline-flex">Start a project</a>
+      <button type="button" class="rounded-lg p-2 text-slate-200 hover:bg-white/10 md:hidden"
+              @click="open = !open" :aria-expanded="open.toString()" aria-controls="mobile-menu" aria-expanded="false">
+        <span class="sr-only">Toggle menu</span>
+        <span x-show="!open">{{ icon("menu") }}</span>
+        <span x-show="open" x-cloak>{{ icon("close") }}</span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" x-show="open" x-cloak x-transition.opacity class="border-t border-white/10 md:hidden">
+    <ul class="container-page flex flex-col gap-1 py-4">
+      {% for endpoint, label in nav_links + [("main.contact", "Contact")] %}
+      <li>
+        <a href="{{ url_for(endpoint) }}" class="block rounded-lg px-3 py-2.5 text-base font-medium text-slate-200 hover:bg-white/10"
+           {% if request.endpoint == endpoint %}aria-current="page"{% endif %}>{{ label }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</header>
