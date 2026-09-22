@@ -1,46 +1,33 @@
 {% extends "base.html" %}
-{% block title %}About Us: AI Automation Agency in Kampala{% endblock %}
-{% block description %}Jengo is an AI automation agency headquartered in Kampala, Uganda, delivering workflow automation and AI systems to businesses in Uganda, East Africa, the US, UK, Europe and Australia.{% endblock %}
+{# All words on this page come from content.toml ([about] and [[testimonials]]). #}
+{% block title %}{{ c.about.title }}{% endblock %}
+{% block description %}{{ c.about.description }}{% endblock %}
 
 {% block content %}
+{% set p = c.about %}
 <section class="relative overflow-hidden bg-ink-900">
   <div class="hero-glow absolute inset-0" aria-hidden="true"></div>
   <div class="container-page relative py-20 sm:py-24">
-    <p class="eyebrow !text-brand-300">About Jengo</p>
-    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">Built in Kampala, working with teams everywhere</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-      We help growing businesses in Uganda and around the world put AI and automation to work: carefully engineered, clearly documented and fully owned by our clients.
-    </p>
+    <p class="eyebrow !text-brand-300">{{ p.eyebrow }}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">{{ p.heading }}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">{{ p.intro }}</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container-page grid gap-14 lg:grid-cols-2">
     <div class="reveal">
-      <p class="eyebrow">Our story</p>
-      <h2 class="mt-3 text-3xl sm:text-4xl">Why we started Jengo</h2>
+      <p class="eyebrow">{{ p.story_eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.story_heading }}</h2>
       <div class="mt-6 space-y-4 text-lg leading-relaxed text-slate-600">
-        <p>
-          Every growing business hits the same wall. The team is capable, but more and more of their day goes to copying data between tools, chasing updates and answering the same questions again and again.
-        </p>
-        <p>
-          AI and no-code platforms have made it possible to automate much of that work, but only if someone designs it properly. Too many automations are fragile, undocumented and understood by just one person.
-        </p>
-        <p>
-          Jengo exists to do this properly. We treat automation as engineering: scoped, tested, monitored and handed over so your team can rely on it. We work from Kampala, one of Africa's fastest-growing tech hubs. We serve businesses across Uganda and East Africa in person, and teams in North America, Europe and Australia remotely.
-        </p>
+        {% for paragraph in p.story %}<p>{{ paragraph }}</p>{% endfor %}
       </div>
     </div>
     <div class="reveal grid content-start gap-4 sm:grid-cols-2">
-      {% for stat, label in [
-        ("UTC+3", "Local to East Africa, with working hours that overlap the UK, Europe, the US East Coast and Australia"),
-        ("< 1 day", "Our response time to every enquiry and client message"),
-        ("100%", "Of the automations we build are owned by our clients"),
-        ("30 days", "Of post-launch support included with every build"),
-      ] %}
+      {% for stat in p.stats %}
       <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <p class="text-3xl font-extrabold tracking-tight text-ink-900">{{ stat }}</p>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ label }}</p>
+        <p class="text-3xl font-extrabold tracking-tight text-ink-900">{{ stat.value }}</p>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ stat.label }}</p>
       </div>
       {% endfor %}
     </div>
@@ -50,40 +37,46 @@
 <section class="section bg-slate-50">
   <div class="container-page">
     <div class="reveal max-w-2xl">
-      <p class="eyebrow">How we work</p>
-      <h2 class="mt-3 text-3xl sm:text-4xl">What you can expect from us</h2>
+      <p class="eyebrow">{{ p.principles_eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.principles_heading }}</h2>
     </div>
     <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {% for v_icon, title, body in [
-        ("globe", "Local and remote, equally", "In Kampala we can meet face to face. For clients abroad we work async-first, with weekly video updates and live calls in your time zone. Either way, distance never becomes a delay."),
-        ("shield", "Security by default", "Least-privilege access, your own accounts and credentials, and NDAs or DPAs on request. When the project ends, you revoke our access in one step."),
-        ("document", "Documented, not dependent", "Every workflow comes with written documentation and a recorded walkthrough, so your team, or anyone you hire later, can maintain it."),
-        ("calculator", "Honest scoping", "If something isn't worth automating, we'll tell you. Our fixed-price quotes are based on real scope, not on hours we hope to bill."),
-        ("sparkle", "Pragmatic about AI", "We use AI where it adds real value and plain automation where it doesn't. Every model has guardrails, and people review anything important."),
-        ("users", "Senior attention", "You work directly with the people building your automations. No account-manager relay and nothing lost in translation."),
-      ] %}
+      {% for item in p.principles %}
       <div class="card reveal">
-        <span class="icon-tile">{{ icon(v_icon) }}</span>
-        <h3 class="mt-5 text-lg">{{ title }}</h3>
-        <p class="mt-2 leading-relaxed text-slate-600">{{ body }}</p>
+        <span class="icon-tile">{{ icon(item.icon) }}</span>
+        <h3 class="mt-5 text-lg">{{ item.title }}</h3>
+        <p class="mt-2 leading-relaxed text-slate-600">{{ item.body }}</p>
       </div>
       {% endfor %}
     </div>
   </div>
 </section>
 
+{# ---------- Testimonials (hidden until [[testimonials]] exist) ---------- #}
+{% if c.testimonials %}
 <section class="section">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <p class="eyebrow">{{ p.testimonials_eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.testimonials_heading }}</h2>
+    </div>
+    <div class="mt-12">
+      {% with items = c.testimonials %}{% include "partials/_testimonials.html" %}{% endwith %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section {{ 'bg-slate-50' if c.testimonials }}">
   <div class="container-page grid items-center gap-14 lg:grid-cols-2">
     <div class="reveal">
-      <p class="eyebrow">Who we work with</p>
-      <h2 class="mt-3 text-3xl sm:text-4xl">Growing teams that are ready to scale without adding headcount</h2>
-      <p class="lead-text mt-4">
-        We do our best work with service businesses, agencies, e-commerce brands and B2B companies of 5 to 200 people, in Uganda and East Africa as well as the US, UK, Europe and Australia: teams that have found product-market fit and now need operations that scale.
-      </p>
+      <p class="eyebrow">{{ p.who_eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.who_heading }}</h2>
+      <p class="lead-text mt-4">{{ p.who_body }}</p>
     </div>
     <ul class="reveal grid gap-3 sm:grid-cols-2">
-      {% for who in ["Professional services firms", "Marketing & creative agencies", "E-commerce & DTC brands", "B2B SaaS teams", "Recruitment & staffing", "Real estate & property"] %}
-      <li class="flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-3.5 font-medium text-ink-900">{{ icon("check", "size-5 text-accent-500") }}{{ who }}</li>
+      {% for who in p.industries %}
+      <li class="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink-900">{{ icon("check", "size-5 text-accent-500") }}{{ who }}</li>
       {% endfor %}
     </ul>
   </div>

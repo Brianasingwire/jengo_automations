@@ -1,16 +1,16 @@
 {% extends "base.html" %}
-{% block title %}How It Works: Our Process & a Live Automation{% endblock %}
-{% block description %}See how Jengo delivers AI automation projects, from discovery call to launch, and walk through a real lead-scoring pipeline built on Make.com that qualifies enquiries in under a minute.{% endblock %}
+{# All words on this page come from content.toml ([how_it_works], [[process]], [[case_studies]]). #}
+{% block title %}{{ c.how_it_works.title }}{% endblock %}
+{% block description %}{{ c.how_it_works.description }}{% endblock %}
 
 {% block content %}
+{% set p = c.how_it_works %}
 <section class="relative overflow-hidden bg-ink-900">
   <div class="hero-glow absolute inset-0" aria-hidden="true"></div>
   <div class="container-page relative py-20 sm:py-24">
-    <p class="eyebrow !text-brand-300">How it works</p>
-    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">A clear process, and an automation you can try yourself</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-      Below is how every engagement runs, followed by a real example: the lead pipeline that handles enquiries sent through this website.
-    </p>
+    <p class="eyebrow !text-brand-300">{{ p.eyebrow }}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">{{ p.heading }}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">{{ p.intro }}</p>
   </div>
 </section>
 
@@ -18,13 +18,13 @@
 <section class="section">
   <div class="container-page">
     <div class="reveal max-w-2xl">
-      <p class="eyebrow">Our process</p>
-      <h2 class="mt-3 text-3xl sm:text-4xl">Five steps, with no surprises</h2>
+      <p class="eyebrow">{{ p.process_eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.process_heading }}</h2>
     </div>
     <div class="relative mt-14">
     <div class="absolute top-5 right-[10%] left-[10%] hidden h-px bg-slate-200 md:block" aria-hidden="true"></div>
     <ol class="relative grid gap-8 md:grid-cols-5 md:gap-6">
-      {% for step in process %}
+      {% for step in c.process %}
       <li class="reveal relative">
         <span class="relative flex size-10 items-center justify-center rounded-full bg-brand-500 text-sm font-bold text-white ring-8 ring-white">{{ loop.index }}</span>
         <h3 class="mt-5 text-lg">{{ step.name }}</h3>
@@ -37,79 +37,81 @@
   </div>
 </section>
 
-{# ---------- Case study ---------- #}
+{# ---------- Pipeline walkthrough ---------- #}
 <section class="section bg-ink-900 text-slate-300">
   <div class="container-page">
     <div class="reveal max-w-3xl">
-      <p class="eyebrow !text-accent-300">Automation in action</p>
-      <h2 class="mt-3 text-3xl text-white sm:text-4xl">Inside our own lead-scoring pipeline</h2>
-      <p class="mt-5 text-lg leading-relaxed">
-        Most agencies read every enquiry by hand, often hours later. Ours is scored, logged and routed automatically before you've closed the tab.
-        It's the same pattern we build for clients who need to respond to good-fit leads fast.
-      </p>
+      <p class="eyebrow !text-accent-300">{{ p.pipeline.eyebrow }}</p>
+      <h2 class="mt-3 text-3xl text-white sm:text-4xl">{{ p.pipeline.heading }}</h2>
+      <p class="mt-5 text-lg leading-relaxed">{{ p.pipeline.intro }}</p>
     </div>
 
     <ol class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-      {% for step_icon, title, body in [
-        ("document", "1. Enquiry captured", "You fill in the contact form. The site validates it, filters spam and sends it to a secure Make.com webhook."),
-        ("calculator", "2. Scored automatically", "Make scores the lead on three signals: the service requested, the budget range and the timeline."),
-        ("database", "3. Given a lead ID", "Every lead gets a unique reference, so it can be tracked from first touch to signed project."),
-        ("sheet", "4. Logged to the pipeline", "The scored lead is saved with where it came from (search, referral or campaign), ready for follow-up."),
-        ("bell", "5. Routed by score", "High scores trigger an immediate alert. Everyone else gets a timely, relevant reply. No lead is missed."),
-      ] %}
+      {% for step in p.pipeline.steps %}
       <li class="reveal rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-        <span class="flex size-10 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300">{{ icon(step_icon, "size-5") }}</span>
-        <h3 class="mt-4 text-base text-white">{{ title }}</h3>
-        <p class="mt-2 text-sm leading-relaxed">{{ body }}</p>
+        <span class="flex size-10 items-center justify-center rounded-xl bg-brand-500/15 text-brand-300">{{ icon(step.icon, "size-5") }}</span>
+        <h3 class="mt-4 text-base text-white">{{ step.title }}</h3>
+        <p class="mt-2 text-sm leading-relaxed">{{ step.body }}</p>
       </li>
       {% endfor %}
     </ol>
 
     <div class="mt-14 grid gap-10 lg:grid-cols-2">
       <div class="reveal">
-        <h3 class="text-xl text-white">How the score works</h3>
-        <p class="mt-3 leading-relaxed">
-          Each answer is mapped to points in Make, and the points are added together for a score out of 100.
-          The weighting reflects which leads we're best placed to help. Every client's model is tuned to their own sales data.
-        </p>
+        <h3 class="text-xl text-white">{{ p.scoring.heading }}</h3>
+        <p class="mt-3 leading-relaxed">{{ p.scoring.intro }}</p>
         <div class="mt-6 overflow-x-auto rounded-2xl border border-white/10">
           <table class="w-full text-left text-sm">
-            <caption class="sr-only">Example lead-scoring model</caption>
+            <caption class="sr-only">{{ p.scoring.heading }}</caption>
             <thead class="bg-white/5 text-xs tracking-wider text-slate-400 uppercase">
-              <tr><th scope="col" class="px-5 py-3 font-semibold">Signal</th><th scope="col" class="px-5 py-3 font-semibold">What it tells us</th><th scope="col" class="px-5 py-3 text-right font-semibold">Weight</th></tr>
+              <tr>
+                <th scope="col" class="px-5 py-3 font-semibold">{{ p.scoring.column_signal }}</th>
+                <th scope="col" class="px-5 py-3 font-semibold">{{ p.scoring.column_meaning }}</th>
+                <th scope="col" class="px-5 py-3 text-right font-semibold">{{ p.scoring.column_weight }}</th>
+              </tr>
             </thead>
             <tbody class="divide-y divide-white/10">
-              <tr><td class="px-5 py-3.5 font-medium text-white">Service type</td><td class="px-5 py-3.5">How well the need fits what we do best</td><td class="px-5 py-3.5 text-right font-mono text-accent-300">up to 35</td></tr>
-              <tr><td class="px-5 py-3.5 font-medium text-white">Budget range</td><td class="px-5 py-3.5">Whether the scope is realistic for the budget</td><td class="px-5 py-3.5 text-right font-mono text-accent-300">up to 40</td></tr>
-              <tr><td class="px-5 py-3.5 font-medium text-white">Timeline</td><td class="px-5 py-3.5">How urgent the project is</td><td class="px-5 py-3.5 text-right font-mono text-accent-300">up to 25</td></tr>
+              {% for row in p.scoring.rows %}
+              <tr><td class="px-5 py-3.5 font-medium text-white">{{ row.signal }}</td><td class="px-5 py-3.5">{{ row.meaning }}</td><td class="px-5 py-3.5 text-right font-mono text-accent-300">{{ row.weight }}</td></tr>
+              {% endfor %}
             </tbody>
-            <tfoot class="bg-white/5"><tr><td colspan="2" class="px-5 py-3 font-semibold text-white">Maximum score</td><td class="px-5 py-3 text-right font-mono font-semibold text-white">100</td></tr></tfoot>
+            <tfoot class="bg-white/5"><tr><td colspan="2" class="px-5 py-3 font-semibold text-white">{{ p.scoring.total_label }}</td><td class="px-5 py-3 text-right font-mono font-semibold text-white">{{ p.scoring.total }}</td></tr></tfoot>
           </table>
         </div>
-        <p class="mt-3 text-xs text-slate-500">Example weighting, shown for illustration.</p>
+        <p class="mt-3 text-xs text-slate-500">{{ p.scoring.footnote }}</p>
       </div>
 
       <div class="reveal">
-        <h3 class="text-xl text-white">What this kind of pipeline changes</h3>
+        <h3 class="text-xl text-white">{{ p.benefits.heading }}</h3>
         <ul class="mt-5 space-y-5">
-          {% for title, body in [
-            ("Speed to lead", "Qualified enquiries get a response while the prospect is still thinking about the problem, not the next morning."),
-            ("Consistent qualification", "Every lead is judged by the same rules, so priorities don't depend on who happened to check the inbox."),
-            ("Clean data from day one", "Sequential IDs, timestamps and source tracking make it simple to report on which channels bring the best leads."),
-            ("Low running cost", "Built on Make and tools you already use, it costs a few dollars a month to run. There's no new platform to buy."),
-          ] %}
+          {% for item in p.benefits.points %}
           <li class="flex gap-4">
             <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-500/15 text-accent-300">{{ icon("check", "size-4") }}</span>
-            <div><p class="font-semibold text-white">{{ title }}</p><p class="mt-1 text-sm leading-relaxed">{{ body }}</p></div>
+            <div><p class="font-semibold text-white">{{ item.title }}</p><p class="mt-1 text-sm leading-relaxed">{{ item.body }}</p></div>
           </li>
           {% endfor %}
         </ul>
-        <a href="{{ url_for('main.contact') }}" class="btn-primary mt-9">Try it: send us an enquiry {{ icon("arrow-right", "size-4") }}</a>
+        <a href="{{ url_for('main.contact') }}" class="btn-primary mt-9">{{ p.pipeline.button }} {{ icon("arrow-right", "size-4") }}</a>
       </div>
     </div>
   </div>
 </section>
 
-{% set cta_heading = "Want a pipeline like this for your business?" %}
+{# ---------- Client case studies (hidden until [[case_studies]] exist) ---------- #}
+{% if c.case_studies %}
+<section class="section">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <p class="eyebrow">{{ p.case_studies.eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.case_studies.heading }}</h2>
+    </div>
+    <div class="mt-12">
+      {% with items = c.case_studies, link_text = p.case_studies.card_link, dark = false %}{% include "partials/_case_study_cards.html" %}{% endwith %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% set cta_heading = p.cta_heading %}
 {% include "partials/_cta.html" %}
 {% endblock %}

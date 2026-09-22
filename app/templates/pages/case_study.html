@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{# Layout words come from [case_study_page]; the story from the matching [[case_studies]] entry. #}
+{% block title %}{{ study.title }}{% endblock %}
+{% block description %}{{ study.summary }}{% endblock %}
+
+{% block content %}
+{% set p = c.case_study_page %}
+<section class="relative overflow-hidden bg-ink-900">
+  <div class="hero-glow absolute inset-0" aria-hidden="true"></div>
+  <div class="container-page relative py-20 sm:py-24">
+    <p class="eyebrow !text-brand-300">{{ p.eyebrow }} · {{ study.client }}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">{{ study.title }}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">{{ study.summary }}</p>
+    {% if study.industry or study.location %}
+    <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-3 text-sm">
+      {% if study.industry %}<div><dt class="text-slate-400">{{ p.industry_label }}</dt><dd class="font-semibold text-white">{{ study.industry }}</dd></div>{% endif %}
+      {% if study.location %}<div><dt class="text-slate-400">{{ p.location_label }}</dt><dd class="font-semibold text-white">{{ study.location }}</dd></div>{% endif %}
+    </dl>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-page grid gap-14 lg:grid-cols-[1.4fr_1fr]">
+    <div class="space-y-12">
+      <div class="reveal">
+        <h2 class="text-2xl sm:text-3xl">{{ p.challenge_heading }}</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">{{ study.challenge }}</p>
+      </div>
+      <div class="reveal">
+        <h2 class="text-2xl sm:text-3xl">{{ p.solution_heading }}</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-600">{{ study.solution }}</p>
+      </div>
+      {% if study.quote %}
+      <figure class="reveal border-l-4 border-brand-500 pl-6">
+        <blockquote class="text-xl leading-relaxed font-medium text-ink-900">“{{ study.quote }}”</blockquote>
+        {% if study.quote_by %}<figcaption class="mt-3 text-sm text-slate-500">{{ study.quote_by }}</figcaption>{% endif %}
+      </figure>
+      {% endif %}
+    </div>
+
+    <aside class="reveal space-y-6 self-start">
+      <div class="rounded-2xl bg-ink-900 p-7 text-slate-300">
+        <h2 class="text-lg text-white">{{ p.results_heading }}</h2>
+        <ul class="mt-5 space-y-4">
+          {% for result in study.results %}
+          <li class="flex gap-3">
+            <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-500/15 text-accent-300">{{ icon("check", "size-4") }}</span>
+            <span>{{ result }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% if study.tools %}
+      <div class="rounded-2xl border border-slate-200 p-7">
+        <h2 class="text-sm font-semibold tracking-wider text-slate-500 uppercase">{{ p.tools_label }}</h2>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {% for tool in study.tools %}
+          <li class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-ink-800">{{ tool }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+
+{% set cta_heading = p.cta_heading %}
+{% include "partials/_cta.html" %}
+{% endblock %}

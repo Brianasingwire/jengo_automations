@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Contact: Start Your Automation Project{% endblock %}
-{% block description %}Tell Jengo about your workflows and goals. We reply within one business day with an honest view of where AI automation will save your team the most time.{% endblock %}
+{# Page words come from content.toml ([contact]); form questions from app/forms.py. #}
+{% block title %}{{ c.contact.title }}{% endblock %}
+{% block description %}{{ c.contact.description }}{% endblock %}
 
 {% macro field(f) -%}
 <div>
@@ -15,14 +16,13 @@
 {%- endmacro %}
 
 {% block content %}
+{% set p = c.contact %}
 <section class="relative overflow-hidden bg-ink-900">
   <div class="hero-glow absolute inset-0" aria-hidden="true"></div>
   <div class="container-page relative py-16 sm:py-20">
-    <p class="eyebrow !text-brand-300">Contact</p>
-    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">Let's find the work your team shouldn't be doing</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-      Answer a few quick questions. We'll reply within one business day with next steps, and usually a first idea or two.
-    </p>
+    <p class="eyebrow !text-brand-300">{{ p.eyebrow }}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">{{ p.heading }}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">{{ p.intro }}</p>
   </div>
 </section>
 
@@ -35,8 +35,7 @@
       {% endfor %}
       {% endwith %}
 
-      <form method="post" action="{{ url_for('main.contact') }}"
-            x-data="{ sending: false }" @submit="sending = true">
+      <form method="post" action="{{ url_for('main.contact') }}" data-submit-state>
         {{ form.hidden_tag() }}
         <div class="grid gap-6">
           <div class="grid gap-6 sm:grid-cols-2">
@@ -56,12 +55,14 @@
           </div>
 
           <div>
-            <button type="submit" class="btn-primary w-full !py-3.5 text-base sm:w-auto" :disabled="sending" :class="sending && 'opacity-70 cursor-wait'">
-              <span x-show="!sending">Send enquiry</span>
-              <span x-show="sending" x-cloak>Sending…</span>
+            <button type="submit" class="btn-primary w-full !py-3.5 text-base sm:w-auto">
+              <span data-idle>{{ p.send_button }}</span>
+              <span data-busy hidden>{{ p.sending_button }}</span>
               {{ icon("arrow-right", "size-4") }}
             </button>
-            <p class="mt-4 text-xs text-slate-500">We only use your details to respond to your enquiry. No mailing lists, and we never share your data.</p>
+            <p class="mt-4 text-xs text-slate-500">
+              {{ p.privacy_note }} See our <a class="underline hover:text-slate-700" href="{{ url_for('main.privacy') }}">privacy policy</a>.
+            </p>
           </div>
         </div>
       </form>
@@ -69,28 +70,24 @@
 
     <aside class="space-y-8">
       <div>
-        <h2 class="text-lg">What happens next</h2>
+        <h2 class="text-lg">{{ p.next_steps_heading }}</h2>
         <ol class="mt-5 space-y-5">
-          {% for title, body in [
-            ("We review your enquiry", "Your answers are routed to the right person straight away."),
-            ("You get a reply within one business day", "With a few clarifying questions and some initial ideas."),
-            ("We have a 30-minute discovery call", "On video at a time that suits your time zone, or in person if you're in Kampala. No obligation."),
-          ] %}
+          {% for step in p.next_steps %}
           <li class="flex gap-4">
             <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-sm font-bold text-brand-600">{{ loop.index }}</span>
-            <div><p class="font-semibold text-ink-900">{{ title }}</p><p class="mt-0.5 text-sm text-slate-600">{{ body }}</p></div>
+            <div><p class="font-semibold text-ink-900">{{ step.title }}</p><p class="mt-0.5 text-sm text-slate-600">{{ step.body }}</p></div>
           </li>
           {% endfor %}
         </ol>
       </div>
       <div class="rounded-2xl bg-slate-50 p-6">
-        <h2 class="text-base">Prefer email?</h2>
-        <p class="mt-2 text-sm text-slate-600">Write to us directly and we'll pick it up from there.</p>
+        <h2 class="text-base">{{ p.email_heading }}</h2>
+        <p class="mt-2 text-sm text-slate-600">{{ p.email_body }}</p>
         <a href="mailto:{{ contact_email }}" class="mt-3 inline-flex items-center gap-2 font-semibold text-brand-600 hover:text-brand-700">{{ icon("mail", "size-5") }}{{ contact_email }}</a>
       </div>
       <div class="flex items-start gap-3 text-sm text-slate-600">
         {{ icon("globe", "size-5 shrink-0 text-slate-400") }}
-        <p>Based in Kampala, Uganda (EAT, UTC+3). We work with clients across Uganda and East Africa, and remotely with teams in the US, UK, Europe and Australia.</p>
+        <p>{{ p.location_note }}</p>
       </div>
     </aside>
   </div>

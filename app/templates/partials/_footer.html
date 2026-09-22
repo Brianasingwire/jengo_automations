@@ -6,7 +6,7 @@
         {{ site_name }}
       </a>
       <p class="mt-4 max-w-sm text-sm leading-relaxed">
-        AI automation agency based in Kampala, Uganda, building for growing businesses at home and abroad.
+        {{ c.site.footer_blurb }}
       </p>
     </div>
     <div>
@@ -22,12 +22,15 @@
       <h2 class="text-sm font-semibold text-white">Get in touch</h2>
       <ul class="mt-4 space-y-2.5 text-sm">
         <li class="flex items-center gap-2">{{ icon("mail", "size-4 shrink-0") }}<a class="hover:text-white" href="mailto:{{ contact_email }}">{{ contact_email }}</a></li>
-        <li class="flex items-center gap-2">{{ icon("pin", "size-4 shrink-0") }}Kampala, Uganda</li>
-        <li class="flex items-center gap-2">{{ icon("clock", "size-4 shrink-0") }}EAT (UTC+3)</li>
+        <li class="flex items-center gap-2">{{ icon("pin", "size-4 shrink-0") }}{{ c.site.location }}</li>
+        <li class="flex items-center gap-2">{{ icon("clock", "size-4 shrink-0") }}{{ c.site.timezone }}</li>
       </ul>
     </div>
   </div>
   <div class="border-t border-white/10">
-    <p class="container-page py-6 text-xs">&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
+    <div class="container-page flex flex-col gap-2 py-6 text-xs sm:flex-row sm:justify-between">
+      <p>&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
+      <a class="hover:text-white" href="{{ url_for('main.privacy') }}">Privacy policy</a>
+    </div>
   </div>
 </footer>

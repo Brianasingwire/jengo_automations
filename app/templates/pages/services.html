@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% block title %}AI Automation Services{% endblock %}
-{% block description %}Workflow automation, AI agents and chatbots, lead scoring and CRM automation, AI document processing and reporting pipelines, built on Make, n8n, OpenAI and Claude. Fixed-price projects for clients in Uganda and worldwide.{% endblock %}
+{# All words on this page come from content.toml ([services_page] and [[services]]). #}
+{% block title %}{{ c.services_page.title }}{% endblock %}
+{% block description %}{{ c.services_page.description }}{% endblock %}
 
 {% block content %}
+{% set p = c.services_page %}
 <section class="relative overflow-hidden bg-ink-900">
   <div class="hero-glow absolute inset-0" aria-hidden="true"></div>
   <div class="container-page relative py-20 sm:py-24">
-    <p class="eyebrow !text-brand-300">Services</p>
-    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">AI automation services for teams that have outgrown manual work</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">
-      Each service is scoped as a fixed-price project with clear deliverables. Start with one workflow or combine several into a wider automation programme.
-    </p>
+    <p class="eyebrow !text-brand-300">{{ p.eyebrow }}</p>
+    <h1 class="mt-3 max-w-3xl text-4xl text-white sm:text-5xl">{{ p.heading }}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-300">{{ p.intro }}</p>
     <nav class="mt-10 flex flex-wrap gap-2" aria-label="Jump to service">
-      {% for s in services %}
+      {% for s in c.services %}
       <a href="#{{ s.id }}" class="rounded-full border border-white/15 px-4 py-2 text-sm text-slate-200 transition hover:border-white/30 hover:bg-white/10">{{ s.name }}</a>
       {% endfor %}
     </nav>
@@ -20,7 +20,7 @@
 </section>
 
 <div class="container-page divide-y divide-slate-200">
-  {% for s in services %}
+  {% for s in c.services %}
   <section id="{{ s.id }}" class="reveal grid scroll-mt-24 gap-10 py-16 sm:py-20 lg:grid-cols-[1.2fr_1fr]">
     <div>
       <span class="icon-tile">{{ icon(s.icon) }}</span>
@@ -29,20 +29,20 @@
       <p class="mt-4 leading-relaxed text-slate-600">{{ s.description }}</p>
       <dl class="mt-8 grid gap-6 sm:grid-cols-2">
         <div>
-          <dt class="text-xs font-semibold tracking-wider text-slate-500 uppercase">Typical timeline</dt>
+          <dt class="text-xs font-semibold tracking-wider text-slate-500 uppercase">{{ p.timeline_label }}</dt>
           <dd class="mt-1 font-medium text-ink-900">{{ s.timeline }}</dd>
         </div>
         <div>
-          <dt class="text-xs font-semibold tracking-wider text-slate-500 uppercase">Tools</dt>
+          <dt class="text-xs font-semibold tracking-wider text-slate-500 uppercase">{{ p.tools_label }}</dt>
           <dd class="mt-1 font-medium text-ink-900">{{ s.tools }}</dd>
         </div>
       </dl>
       <a href="{{ url_for('main.contact', service=s.id) if s.id in service_option_ids else url_for('main.contact') }}" class="btn-primary mt-8">
-        Discuss your project {{ icon("arrow-right", "size-4") }}
+        {{ p.button }} {{ icon("arrow-right", "size-4") }}
       </a>
     </div>
     <div class="self-start rounded-2xl bg-slate-50 p-7">
-      <h3 class="text-sm font-semibold tracking-wider text-slate-500 uppercase">Example automations</h3>
+      <h3 class="text-sm font-semibold tracking-wider text-slate-500 uppercase">{{ p.examples_label }}</h3>
       <ul class="mt-5 space-y-4">
         {% for ex in s.examples %}
         <li class="flex gap-3">
@@ -59,22 +59,18 @@
 <section class="section bg-slate-50">
   <div class="container-page">
     <div class="reveal max-w-2xl">
-      <p class="eyebrow">Ways to work together</p>
-      <h2 class="mt-3 text-3xl sm:text-4xl">Start small, then scale what works</h2>
+      <p class="eyebrow">{{ p.packages_eyebrow }}</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">{{ p.packages_heading }}</h2>
     </div>
     <div class="mt-12 grid gap-6 md:grid-cols-3">
-      {% for name, tag, body, points in [
-        ("Automation audit", "Start here", "A focused review of your operations that maps where time goes and ranks automation opportunities by return on investment.", ["Process mapping session", "Prioritised opportunity report", "Fixed-price build proposal"]),
-        ("Build project", "Core offer", "We design, build, test and launch one or more automations to a fixed scope, then hand them over with full documentation.", ["Fixed price, agreed up front", "Weekly progress updates", "30 days post-launch support"]),
-        ("Care plan", "Ongoing", "A monthly plan for teams that rely on their automations and want them monitored, maintained and improved.", ["Monitoring and alerting", "Priority fixes", "Monthly improvement hours"]),
-      ] %}
-      <div class="card reveal flex flex-col {{ 'ring-2 ring-brand-500' if tag == 'Core offer' }}">
-        <p class="text-xs font-semibold tracking-wider text-brand-600 uppercase">{{ tag }}</p>
-        <h3 class="mt-2 text-xl">{{ name }}</h3>
-        <p class="mt-3 leading-relaxed text-slate-600">{{ body }}</p>
+      {% for pkg in p.packages %}
+      <div class="card reveal flex flex-col {{ 'ring-2 ring-brand-500' if pkg.highlight }}">
+        <p class="text-xs font-semibold tracking-wider text-brand-600 uppercase">{{ pkg.tag }}</p>
+        <h3 class="mt-2 text-xl">{{ pkg.name }}</h3>
+        <p class="mt-3 leading-relaxed text-slate-600">{{ pkg.body }}</p>
         <ul class="mt-6 space-y-2.5 text-sm">
-          {% for p in points %}
-          <li class="flex items-center gap-2 text-slate-700">{{ icon("check", "size-4 text-accent-500") }}{{ p }}</li>
+          {% for point in pkg.points %}
+          <li class="flex items-center gap-2 text-slate-700">{{ icon("check", "size-4 text-accent-500") }}{{ point }}</li>
           {% endfor %}
         </ul>
       </div>
@@ -83,6 +79,6 @@
   </div>
 </section>
 
-{% set cta_heading = "Not sure which service fits? Tell us the problem." %}
+{% set cta_heading = p.cta_heading %}
 {% include "partials/_cta.html" %}
 {% endblock %}

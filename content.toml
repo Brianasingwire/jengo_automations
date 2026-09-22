@@ -1,0 +1,666 @@
+# =============================================================================
+#  JENGO WEBSITE WORDS
+#  The words on every page live in this file. Edit the words between the
+#  quotes, save, and the site updates.
+# =============================================================================
+#
+#  HOW TO EDIT SAFELY
+#  - Only change text inside quotes: "like this". Keep the quotes.
+#  - Longer text sits between triple quotes: """like this""". Line breaks
+#    inside them don't matter; the website joins the lines into one paragraph.
+#  - Lines starting with # are notes (like this one). The website ignores them.
+#  - Don't rename anything to the LEFT of an = sign, and don't change a
+#    [section name]. The website looks for those exact names.
+#  - If a quote mark is part of your text, write \" (for example: \"fast\").
+#    Apostrophes are fine as they are: we're, don't, client's.
+#  - Lists look like ["one", "two", "three"]. Keep the commas between items.
+#
+#  AFTER EDITING
+#  - Preview: run `make dev` and open http://localhost:5000. Changes show up
+#    when you refresh the page.
+#  - Check: run `make test`. If you broke something (a missing quote, an
+#    unknown icon, a page description that's too long), the message tells you
+#    what to fix and where. A broken file also stops the site from starting,
+#    so a mistake can never go live. The previous version keeps running.
+#  - Search results: page `title`s should be 52 characters or fewer (the site
+#    adds " | Jengo") and `description`s 160 or fewer, or Google cuts them off.
+#    `make test` checks this for you.
+#  - Publish: commit the file. Railway/Render redeploys automatically once it's
+#    connected to GitHub. You can also edit this file on github.com directly.
+#
+#  ICONS: fields called `icon` accept one of these names:
+#    workflow, agent, funnel, document, chart, sparkle, check, arrow-right,
+#    clock, globe, shield, key, bolt, database, sheet, bell, support, users,
+#    calculator, mail, pin
+#
+#  NOT IN THIS FILE
+#  - Contact form questions and dropdown options: app/forms.py and app/leads.py
+#    (the dropdowns feed your Make scoring, so they're kept with the code).
+#  - The privacy policy: app/templates/pages/privacy.html (legal text, so have
+#    changes reviewed).
+#  - Your contact email: the CONTACT_EMAIL setting on Railway/Render.
+#  - Menu and footer link names ("Services", "About", "Get in touch"...):
+#    app/templates/partials/_nav.html and _footer.html.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+#  WHOLE SITE
+# -----------------------------------------------------------------------------
+[site]
+# Browser-tab title for the home page (other pages set their own below).
+home_title = "Jengo | AI Automation Agency in Kampala, Uganda & Worldwide"
+# What search engines understand the business to be.
+search_engine_summary = "Kampala-based AI automation agency building workflow automation, AI agents and lead-generation systems for businesses in Uganda, East Africa, the US, UK, Europe and Australia."
+location = "Kampala, Uganda"
+timezone = "EAT (UTC+3)"
+nav_button = "Start a project"
+footer_blurb = "AI automation agency based in Kampala, Uganda, building for growing businesses at home and abroad."
+
+
+# The dark "call to action" band at the bottom of most pages. Pages can
+# replace the heading with their own `cta_heading` (see below).
+[cta]
+heading = "Find out what you could automate this month"
+body = "Tell us about your workflows. We'll reply within one business day with a view on where automation will pay off."
+primary_button = "Start a project"
+secondary_button = "See how it works"
+
+
+# =============================================================================
+#  YOUR CLIENTS, TESTIMONIALS AND CASE STUDIES
+#  These sections stay HIDDEN on the website until you add at least one entry.
+#
+#  Only add real clients, with their permission, and quote them word for word.
+#  Invented or unapproved social proof can break advertising and consumer law
+#  in the UK, EU, US and Uganda, and it damages trust if a prospect checks.
+#
+#  To add an entry, copy an example block, remove the # at the start of each
+#  line, and fill it in. Add `hidden = true` to any entry to keep it off the
+#  site while you're waiting for approval.
+# =============================================================================
+
+# --- CLIENT LOGOS ------------------------------------------------------------
+# Shown as a "trusted by" row on the home page.
+# logo: put the image in app/static/img/clients/ and write just its file name.
+#       SVG or PNG, ideally on a transparent background. Leave the line out to
+#       show the client's name as text instead.
+# website: optional; makes the logo a link.
+#
+# [[clients]]
+# name = "Example Coffee Co."
+# logo = "example-coffee.svg"
+# website = "https://example.com"
+
+
+# --- TESTIMONIALS ------------------------------------------------------------
+# Shown on the home page (first three) and the About page (all of them).
+#
+# [[testimonials]]
+# quote = "Jengo automated our order intake. What took two people a full day now happens on its own."
+# name = "Jane Namukasa"
+# role = "Operations Manager"
+# company = "Example Coffee Co."
+
+
+# --- CASE STUDIES ------------------------------------------------------------
+# Each case study gets its own page at /case-studies/<slug>, is listed on the
+# home and How it works pages, and is added to the sitemap for Google.
+# slug: the web address, lowercase words with hyphens, e.g. "coffee-order-intake".
+#       Don't change it after publishing, or old links will break.
+# results: short, specific and true. Numbers the client has approved.
+# quote: optional. A line from the client that appears on the case-study page.
+#
+# [[case_studies]]
+# slug = "coffee-order-intake"
+# title = "Automating order intake for a Kampala coffee exporter"
+# client = "Example Coffee Co."
+# industry = "Agriculture & export"
+# location = "Kampala, Uganda"
+# summary = "Orders from email and WhatsApp now land in one sheet, checked and ready to fulfil."
+# challenge = """Orders arrived by email, WhatsApp and phone, and two staff re-typed
+# every one into a spreadsheet, which caused delays and mistakes."""
+# solution = """We built a Make workflow that reads incoming orders, extracts the details
+# with AI, checks them against the price list, and logs them for the warehouse."""
+# results = [
+#   "Order entry time cut from a full day to minutes",
+#   "Typing errors in orders eliminated",
+#   "Staff moved to customer follow-up",
+# ]
+# tools = ["Make", "OpenAI", "Google Sheets", "WhatsApp Business"]
+# quote = "What took two people a full day now happens on its own."
+# quote_by = "Jane Namukasa, Operations Manager"
+
+
+# -----------------------------------------------------------------------------
+#  HOME PAGE
+# -----------------------------------------------------------------------------
+[home]
+description = "Jengo builds AI automations, AI agents and lead systems for businesses in Uganda and worldwide. Fixed-price projects, built in accounts you own."
+
+[home.hero]
+badge = "AI automation agency · Kampala-based, working worldwide"
+title_line_1 = "Automate the busywork."
+title_line_2 = "Grow without adding headcount."
+intro = "We design and build AI automations that take repetitive work off your team's plate: lead handling, support, reporting, document processing and the handoffs between your tools."
+primary_button = "Start a project"
+secondary_button = "Explore services"
+checks = ["Fixed-price projects", "You own everything we build", "Reply within one business day"]
+
+# The example card on the right of the hero.
+[home.hero_example]
+title = "New lead pipeline"
+badge = "Example"
+footnote = "Illustrative run: every step happens automatically"
+
+[[home.hero_example.steps]]
+icon = "bolt"
+title = "Form submitted"
+detail = "Website enquiry received"
+value = "0.2s"
+
+[[home.hero_example.steps]]
+icon = "calculator"
+title = "Lead scored"
+detail = "Service fit · budget · timeline"
+value = "86 / 100"
+
+[[home.hero_example.steps]]
+icon = "database"
+title = "Lead ID assigned"
+detail = "Logged to the sales pipeline"
+value = "JG-0142"
+
+[[home.hero_example.steps]]
+icon = "bell"
+title = "Sales alerted"
+detail = "Hot lead → Slack + email"
+value = "Sent"
+
+[home.clients]
+# Only shown once you add [[clients]] above.
+heading = "Trusted by teams in Kampala and beyond"
+
+[home.tools]
+heading = "We build on the platforms you already use"
+list = ["Make", "n8n", "Zapier", "OpenAI", "Anthropic Claude", "HubSpot", "Airtable", "Google Workspace", "Slack", "WhatsApp Business", "MTN MoMo", "Shopify"]
+
+[home.why]
+eyebrow = "Why automate with Jengo"
+heading = "Automation that pays for itself and keeps working after launch"
+intro = "Most automation projects fail quietly: a scenario breaks, nobody notices, and the team drifts back to spreadsheets. We build for reliability and ownership from day one."
+
+[[home.why.cards]]
+icon = "calculator"
+title = "Priced up front"
+body = "Every build starts with a written blueprint and a fixed price. You know what you're getting, what it costs and what it should save before any work starts."
+
+[[home.why.cards]]
+icon = "shield"
+title = "Built not to break"
+body = "Error handling, retries and alerting come as standard. If something upstream changes, the right person hears about it before your customers do."
+
+[[home.why.cards]]
+icon = "key"
+title = "Yours to keep"
+body = "We build in your accounts, document every workflow and record walkthroughs. You're never locked in to us, or to any single platform."
+
+[home.services]
+eyebrow = "Services"
+heading = "What we automate"
+intro = "From one high-impact workflow to an AI layer across your whole operation."
+button = "All services"
+card_link = "Learn more"
+
+[home.testimonials]
+# Only shown once you add [[testimonials]] above.
+eyebrow = "Client stories"
+heading = "What our clients say"
+
+[home.case_studies]
+# Only shown once you add [[case_studies]] above.
+eyebrow = "Case studies"
+heading = "Recent automation projects"
+card_link = "Read the case study"
+
+[home.process]
+eyebrow = "How it works"
+heading = "From first call to live automation in weeks, not months"
+intro = "A clear, fixed-scope process built for remote collaboration across time zones."
+button = "See our process and an example"
+
+[home.faq]
+eyebrow = "FAQ"
+heading = "Common questions"
+
+
+# -----------------------------------------------------------------------------
+#  SERVICES (shown on the home page and the Services page)
+#  id: don't change it. It's used for links and to preselect the service on
+#  the contact form.
+# -----------------------------------------------------------------------------
+[[services]]
+id = "workflow_automation"
+icon = "workflow"
+name = "Workflow Automation"
+summary = "Connect the tools you already pay for and stop moving data between them by hand."
+description = """We map how work actually moves through your business, then build reliable automations
+between your CRM, inbox, spreadsheets, accounting and project tools. Every automation includes
+error handling and alerts, so nothing fails silently."""
+examples = [
+  "New deal in the CRM creates the project, the invoice draft and the kickoff email",
+  "Orders sync between Shopify, your warehouse sheet and accounting",
+  "Mobile money payments (MTN MoMo, Airtel Money) matched to invoices and recorded automatically",
+  "Client onboarding: contract signed, then folders, access and welcome sequence set up",
+]
+tools = "Make, n8n, Zapier, mobile money APIs, native APIs and webhooks"
+timeline = "1–3 weeks per workflow"
+
+[[services]]
+id = "ai_agents"
+icon = "agent"
+name = "AI Agents & Chatbots"
+summary = "Assistants that answer customers, triage requests and draft replies, trained on your own content."
+description = """We build AI assistants that work from your knowledge base, policies and past conversations,
+and hand over to a person when they should. We define guardrails and escalation rules first, then
+test against real questions before launch."""
+examples = [
+  "Website and WhatsApp assistant that qualifies enquiries and books calls",
+  "Support inbox triage: categorise, prioritise and draft replies for review",
+  "Internal assistant that answers staff questions from your SOPs and docs",
+]
+tools = "OpenAI, Anthropic Claude, vector search, your helpdesk and chat channels"
+timeline = "2–5 weeks"
+
+[[services]]
+id = "lead_crm"
+icon = "funnel"
+name = "Lead Generation & CRM Automation"
+summary = "Capture, score and route every lead in seconds, so your sales team only talks to good fits."
+description = """Speed to lead wins deals. We automate the path from form fill or ad click to a scored,
+enriched CRM record with the right follow-up already running. It's the same kind of pipeline that
+handles enquiries from this website."""
+examples = [
+  "Lead scoring on budget, timeline and service fit, with instant alerts for hot leads",
+  "Automatic enrichment and deduplication before leads reach your CRM",
+  "Personalised follow-up sequences triggered by lead score and behaviour",
+]
+tools = "HubSpot, Pipedrive, GoHighLevel, Google Sheets, Make, Tally and Typeform"
+timeline = "1–3 weeks"
+
+[[services]]
+id = "document_ai"
+icon = "document"
+name = "AI Document Processing"
+summary = "Pull structured data out of invoices, contracts, forms and emails, with no manual re-typing."
+description = """We combine OCR and language models to read the documents your team processes every day,
+pull out the fields you need, validate them, and push them into your systems. Anything with low
+confidence is flagged for human review."""
+examples = [
+  "Supplier invoices read, coded and queued for approval in your accounting tool",
+  "Contracts summarised with key dates and obligations logged to a tracker",
+  "Application or intake forms checked for completeness and routed automatically",
+]
+tools = "LLM extraction, OCR, Google Drive, SharePoint, Xero and QuickBooks"
+timeline = "2–4 weeks"
+
+[[services]]
+id = "reporting"
+icon = "chart"
+name = "Reporting & Data Pipelines"
+summary = "Numbers you trust, delivered automatically, without Monday-morning spreadsheet assembly."
+description = """We consolidate data from your ad platforms, CRM, finance and operations tools into one
+place and build the reports your team actually reads. AI-written summaries point out what changed
+and why it matters."""
+examples = [
+  "Weekly KPI digest in Slack or email with an AI-written commentary",
+  "Marketing spend vs. pipeline dashboard across every channel",
+  "Automated client reporting for agencies and service businesses",
+]
+tools = "Google Sheets, BigQuery, Looker Studio, Airtable and APIs"
+timeline = "1–3 weeks"
+
+[[services]]
+id = "care_plan"
+icon = "support"
+name = "Care Plans & Ongoing Support"
+summary = "Monitoring, fixes and continuous improvement for the automations you rely on."
+description = """APIs change and businesses grow, so automations need looking after. Our monthly care
+plans cover monitoring, fixes, small improvements and a standing block of build hours, so your
+systems keep up as you scale."""
+examples = [
+  "Proactive monitoring with alerts when a scenario errors or slows down",
+  "Monthly review of run history, costs and new opportunities",
+  "Priority fixes and a standing block of hours for new automations",
+]
+tools = "Works with anything we've built, and with automations built by others"
+timeline = "Monthly"
+
+
+# -----------------------------------------------------------------------------
+#  PROCESS STEPS (shown on the home page and the How it works page)
+# -----------------------------------------------------------------------------
+[[process]]
+name = "Discovery call"
+duration = "30 minutes"
+body = "We learn how your team works today, where time is lost, and what a win looks like. You leave with an honest view of what's worth automating, even if you don't hire us."
+
+[[process]]
+name = "Automation blueprint"
+duration = "3–5 days"
+body = "A written plan: the workflows, the tools, the edge cases, the expected time saved, and a fixed-price quote. No open-ended hourly billing."
+
+[[process]]
+name = "Build & test"
+duration = "1–5 weeks"
+body = "We build in your accounts, not ours, and share progress every week. Everything is tested against real data and failure cases before it goes live."
+
+[[process]]
+name = "Launch & handover"
+duration = "1 week"
+body = "We go live alongside your team, and you get documentation and a recorded walkthrough of every automation. You own all of it."
+
+[[process]]
+name = "Support & improve"
+duration = "Ongoing"
+body = "Every project includes a post-launch support period. After that, an optional care plan keeps things running and improving."
+
+
+# -----------------------------------------------------------------------------
+#  FREQUENTLY ASKED QUESTIONS (home page)
+# -----------------------------------------------------------------------------
+[[faqs]]
+question = "Do you work with local clients as well as international ones?"
+answer = "Yes. We can meet businesses in Kampala in person, and we share a time zone with the rest of East Africa. We also build for local tools and channels, such as WhatsApp Business and mobile money. International clients work with us remotely, and get the same process, pricing structure and standards."
+
+[[faqs]]
+question = "How do you work with clients in a different time zone?"
+answer = "We're based in Kampala (EAT, UTC+3). That gives us an overlap with most of the UK and European working day, morning overlap with the US East Coast, and afternoon overlap with Australia. Day-to-day we communicate async through Slack or email plus a weekly video update, and we schedule live calls at times that suit you."
+
+[[faqs]]
+question = "Who owns the automations and accounts?"
+answer = "You do. We build inside your own Make, n8n, CRM and AI provider accounts, and when the project ends you keep everything, including documentation and walkthrough videos."
+
+[[faqs]]
+question = "How is pricing structured?"
+answer = "Build projects are fixed-price, based on the scope in your automation blueprint, so you know the full cost before we start. Ongoing support is a flat monthly care plan."
+
+[[faqs]]
+question = "How do you handle our data and access?"
+answer = "We ask for the minimum access each workflow needs, use your own accounts rather than shared credentials, and are happy to sign an NDA or DPA. When the project is done, you can revoke our access in one step."
+
+[[faqs]]
+question = "What if an automation breaks after launch?"
+answer = "Every automation we build alerts someone when it fails. Fixes are covered during the post-launch support period, and care plan clients get priority fixes as part of their plan."
+
+
+# -----------------------------------------------------------------------------
+#  SERVICES PAGE
+# -----------------------------------------------------------------------------
+[services_page]
+title = "AI Automation Services"
+description = "Workflow automation, AI agents, lead scoring, document processing and reporting, built on Make, n8n, OpenAI and Claude for clients in Uganda and worldwide."
+eyebrow = "Services"
+heading = "AI automation services for teams that have outgrown manual work"
+intro = "Each service is scoped as a fixed-price project with clear deliverables. Start with one workflow or combine several into a wider automation programme."
+timeline_label = "Typical timeline"
+tools_label = "Tools"
+examples_label = "Example automations"
+button = "Discuss your project"
+packages_eyebrow = "Ways to work together"
+packages_heading = "Start small, then scale what works"
+cta_heading = "Not sure which service fits? Tell us the problem."
+
+# highlight = true draws a coloured border around that card.
+[[services_page.packages]]
+name = "Automation audit"
+tag = "Start here"
+body = "A focused review of your operations that maps where time goes and ranks automation opportunities by return on investment."
+points = ["Process mapping session", "Prioritised opportunity report", "Fixed-price build proposal"]
+
+[[services_page.packages]]
+name = "Build project"
+tag = "Core offer"
+highlight = true
+body = "We design, build, test and launch one or more automations to a fixed scope, then hand them over with full documentation."
+points = ["Fixed price, agreed up front", "Weekly progress updates", "Post-launch support period"]
+
+[[services_page.packages]]
+name = "Care plan"
+tag = "Ongoing"
+body = "A monthly plan for teams that rely on their automations and want them monitored, maintained and improved."
+points = ["Monitoring and alerting", "Priority fixes", "Monthly improvement hours"]
+
+
+# -----------------------------------------------------------------------------
+#  HOW IT WORKS PAGE
+# -----------------------------------------------------------------------------
+[how_it_works]
+title = "How It Works: Our Process & an Example"
+description = "How Jengo runs an AI automation project from discovery call to launch, plus a walkthrough of an automated lead-scoring pipeline built on Make.com."
+eyebrow = "How it works"
+heading = "A clear process, and an automation you can try yourself"
+intro = "Below is how every engagement runs, followed by an example: the kind of lead pipeline that handles enquiries sent through this website."
+process_eyebrow = "Our process"
+process_heading = "Five steps, with no surprises"
+cta_heading = "Want a pipeline like this for your business?"
+
+[how_it_works.case_studies]
+# Only shown once you add [[case_studies]] above.
+eyebrow = "Client results"
+heading = "Automations we've delivered"
+card_link = "Read the case study"
+
+[how_it_works.pipeline]
+eyebrow = "Automation in action"
+heading = "How an automated lead pipeline works"
+intro = """Reading every enquiry by hand is slow, and good leads go cold while they wait. The contact
+form on this site feeds a pipeline like this one, and it's the same pattern we build for clients
+who need to respond to good-fit leads fast."""
+button = "Send us an enquiry"
+
+[[how_it_works.pipeline.steps]]
+icon = "document"
+title = "1. Enquiry captured"
+body = "You fill in the contact form. The site validates it, filters spam and sends it to a secure Make.com webhook."
+
+[[how_it_works.pipeline.steps]]
+icon = "calculator"
+title = "2. Scored automatically"
+body = "Make scores the lead on three signals: the service requested, the budget range and the timeline."
+
+[[how_it_works.pipeline.steps]]
+icon = "database"
+title = "3. Given a lead ID"
+body = "Every lead gets a unique reference, so it can be tracked from first touch to signed project."
+
+[[how_it_works.pipeline.steps]]
+icon = "sheet"
+title = "4. Logged to the pipeline"
+body = "The scored lead is saved with where it came from (search, referral or campaign), ready for follow-up."
+
+[[how_it_works.pipeline.steps]]
+icon = "bell"
+title = "5. Routed by score"
+body = "High scores trigger an immediate alert. Everyone else gets a timely, relevant reply. No lead is missed."
+
+[how_it_works.scoring]
+heading = "How the score works"
+intro = """Each answer is mapped to points in Make, and the points are added together for a score out
+of 100. The weighting reflects which leads a business is best placed to help. Every client's model
+is tuned to their own sales data."""
+column_signal = "Signal"
+column_meaning = "What it tells us"
+column_weight = "Weight"
+total_label = "Maximum score"
+total = "100"
+footnote = "Example weighting, shown for illustration."
+
+[[how_it_works.scoring.rows]]
+signal = "Service type"
+meaning = "How well the need fits what we do best"
+weight = "up to 35"
+
+[[how_it_works.scoring.rows]]
+signal = "Budget range"
+meaning = "Whether the scope is realistic for the budget"
+weight = "up to 40"
+
+[[how_it_works.scoring.rows]]
+signal = "Timeline"
+meaning = "How urgent the project is"
+weight = "up to 25"
+
+[how_it_works.benefits]
+heading = "What this kind of pipeline changes"
+
+[[how_it_works.benefits.points]]
+title = "Speed to lead"
+body = "Qualified enquiries get a response while the prospect is still thinking about the problem, not the next morning."
+
+[[how_it_works.benefits.points]]
+title = "Consistent qualification"
+body = "Every lead is judged by the same rules, so priorities don't depend on who happened to check the inbox."
+
+[[how_it_works.benefits.points]]
+title = "Clean data from day one"
+body = "Unique IDs, timestamps and source tracking make it simple to report on which channels bring the best leads."
+
+[[how_it_works.benefits.points]]
+title = "Low running cost"
+body = "Built on Make and tools you already use, so there's no new platform to buy and running costs stay small."
+
+
+# -----------------------------------------------------------------------------
+#  CASE STUDY PAGES (the layout around each [[case_studies]] entry)
+# -----------------------------------------------------------------------------
+[case_study_page]
+eyebrow = "Case study"
+challenge_heading = "The challenge"
+solution_heading = "What we built"
+results_heading = "Results"
+tools_label = "Tools used"
+industry_label = "Industry"
+location_label = "Location"
+cta_heading = "Have a similar problem? Let's talk."
+
+
+# -----------------------------------------------------------------------------
+#  ABOUT PAGE
+# -----------------------------------------------------------------------------
+[about]
+title = "About Us: AI Automation Agency in Kampala"
+description = "Jengo is an AI automation agency in Kampala, Uganda, serving businesses in East Africa, the US, UK, Europe and Australia."
+eyebrow = "About Jengo"
+heading = "Built in Kampala, working with teams everywhere"
+intro = "We help growing businesses in Uganda and around the world put AI and automation to work: carefully engineered, clearly documented and fully owned by our clients."
+
+story_eyebrow = "Our story"
+story_heading = "Why we started Jengo"
+# Each item in this list is one paragraph.
+story = [
+  "Every growing business hits the same wall. The team is capable, but more and more of their day goes to copying data between tools, chasing updates and answering the same questions again and again.",
+  "AI and no-code platforms have made it possible to automate much of that work, but only if someone designs it properly. Too many automations are fragile, undocumented and understood by just one person.",
+  "Jengo exists to do this properly. We treat automation as engineering: scoped, tested, monitored and handed over so your team can rely on it. We work from Kampala, Uganda. We meet clients in Kampala in person, and work remotely with teams across East Africa, North America, Europe and Australia.",
+]
+
+principles_eyebrow = "How we work"
+principles_heading = "What you can expect from us"
+testimonials_eyebrow = "Client stories"
+testimonials_heading = "In our clients' words"
+
+who_eyebrow = "Who we work with"
+who_heading = "Growing teams that are ready to scale without adding headcount"
+who_body = "We do our best work with service businesses, agencies, e-commerce brands and B2B companies of 5 to 200 people, in Uganda and East Africa as well as the US, UK, Europe and Australia: teams that have found product-market fit and now need operations that scale."
+industries = ["Professional services firms", "Marketing & creative agencies", "E-commerce & DTC brands", "B2B SaaS teams", "Recruitment & staffing", "Real estate & property"]
+
+# The four boxes next to "Our story".
+[[about.stats]]
+value = "UTC+3"
+label = "Local to East Africa, with working hours that overlap the UK, Europe, the US East Coast and Australia"
+
+[[about.stats]]
+value = "1 business day"
+label = "Our response time to every enquiry and client message"
+
+[[about.stats]]
+value = "100%"
+label = "Of the automations we build are owned by our clients"
+
+[[about.stats]]
+value = "In person"
+label = "Meetings in Kampala, and video calls in your time zone anywhere else"
+
+[[about.principles]]
+icon = "globe"
+title = "Local and remote, equally"
+body = "In Kampala we can meet face to face. For clients abroad we work async-first, with weekly video updates and live calls in your time zone. Either way, distance never becomes a delay."
+
+[[about.principles]]
+icon = "shield"
+title = "Security by default"
+body = "Least-privilege access, your own accounts and credentials, and NDAs or DPAs on request. When the project ends, you revoke our access in one step."
+
+[[about.principles]]
+icon = "document"
+title = "Documented, not dependent"
+body = "Every workflow comes with written documentation and a recorded walkthrough, so your team, or anyone you hire later, can maintain it."
+
+[[about.principles]]
+icon = "calculator"
+title = "Honest scoping"
+body = "If something isn't worth automating, we'll tell you. Our fixed-price quotes are based on real scope, not on hours we hope to bill."
+
+[[about.principles]]
+icon = "sparkle"
+title = "Pragmatic about AI"
+body = "We use AI where it adds real value and plain automation where it doesn't. Every model has guardrails, and people review anything important."
+
+[[about.principles]]
+icon = "users"
+title = "Senior attention"
+body = "You work directly with the people building your automations. No account-manager relay and nothing lost in translation."
+
+
+# -----------------------------------------------------------------------------
+#  CONTACT PAGE
+# -----------------------------------------------------------------------------
+[contact]
+title = "Contact: Start Your Automation Project"
+description = "Tell Jengo about your workflows and goals. We reply within one business day with an honest view of where AI automation will save your team the most time."
+eyebrow = "Contact"
+heading = "Let's find the work your team shouldn't be doing"
+intro = "Answer a few quick questions. We'll reply within one business day with next steps, and usually a first idea or two."
+send_button = "Send enquiry"
+sending_button = "Sending…"
+# The privacy policy link is added after this sentence automatically.
+privacy_note = "We use your details only to respond to your enquiry. We never sell them or add you to a mailing list. Our enquiry tools (such as Make.com) process them on our behalf."
+next_steps_heading = "What happens next"
+email_heading = "Prefer email?"
+email_body = "Write to us directly and we'll pick it up from there."
+location_note = "Based in Kampala, Uganda (EAT, UTC+3). We work with clients across Uganda and East Africa, and remotely with teams in the US, UK, Europe and Australia."
+
+[[contact.next_steps]]
+title = "We review your enquiry"
+body = "Your answers are routed to the right person straight away."
+
+[[contact.next_steps]]
+title = "You get a reply within one business day"
+body = "With a few clarifying questions and some initial ideas."
+
+[[contact.next_steps]]
+title = "We have a 30-minute discovery call"
+body = "On video at a time that suits your time zone, or in person if you're in Kampala. No obligation."
+
+
+# -----------------------------------------------------------------------------
+#  THANK-YOU PAGE (shown after someone sends the contact form)
+# -----------------------------------------------------------------------------
+[thanks]
+title = "Thanks, we've got your enquiry"
+# {name} is replaced with the person's first name, when we have it.
+heading_with_name = "Thanks, {name}. We've got it."
+heading = "Thanks. We've got it."
+body = "Your enquiry is on its way to our team. We'll reply within one business day, so keep an eye on your inbox (and your spam folder, just in case)."
+primary_button = "See what just happened behind the scenes"
+secondary_button = "Back to home"

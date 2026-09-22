@@ -14,13 +14,16 @@ import requests
 
 log = logging.getLogger(__name__)
 
-# (stable id, label)
+# (stable id, label). The ids are the contract with the Make scenario: never rename or
+# remove one (tests/test_contact.py pins them). Ids are opaque keys, so one that no
+# longer matches its label (e.g. "3k_7k" for "$3,000 – $7,500") is fine; leave it.
 SERVICE_OPTIONS = [
     ("workflow_automation", "Workflow Automation"),
     ("ai_agents", "AI Agents & Chatbots"),
     ("lead_crm", "Lead Generation & CRM Automation"),
     ("document_ai", "AI Document Processing"),
     ("reporting", "Reporting & Data Pipelines"),
+    ("care_plan", "Care Plans & Ongoing Support"),
     ("not_sure", "Not sure yet"),
 ]
 
@@ -76,5 +79,16 @@ def send_lead(payload, webhook_url, timeout):
         resp.raise_for_status()
         return True
     except requests.RequestException as exc:
-        log.error("Lead webhook failed (%s). LEAD PAYLOAD: %s", exc, json.dumps(payload))
+        # Never log str(exc): requests puts the full webhook URL (a credential) in it.
+        status = getattr(exc.response, "status_code", None)
+        reason = f"{type(exc).__name__}, HTTP {status}" if status else type(exc).__name__
+        log_unsent_lead(f"Lead webhook failed ({reason})", payload)
         return False
+
+
+def log_unsent_lead(reason, data):
+    """Log a lead that didn't reach Make, so it can be recovered from the host's logs.
+
+    json.dumps escapes newlines, so user input can't forge extra log lines.
+    """
+    log.error("%s. LEAD PAYLOAD: %s", reason, json.dumps(data))

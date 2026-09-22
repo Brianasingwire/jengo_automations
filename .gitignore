@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .env
+.env.*
+!.env.example
+# Temporary logo written by tests/test_content.py
+app/static/img/clients/_test-*

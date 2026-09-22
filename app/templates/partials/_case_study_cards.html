@@ -1,0 +1,18 @@
+{# Case study cards. Set `items`, `link_text` and optionally `dark`. Hidden when empty. #}
+{% if items %}
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  {% for cs in items %}
+  <a href="{{ url_for('main.case_study', slug=cs.slug) }}"
+     class="reveal group flex flex-col rounded-2xl border p-7 transition hover:-translate-y-0.5 {{ 'border-white/10 bg-white/[0.03] hover:border-white/25' if dark else 'border-slate-200 bg-white shadow-sm hover:border-brand-200 hover:shadow-md' }}">
+    <p class="text-xs font-semibold tracking-wider uppercase {{ 'text-accent-300' if dark else 'text-brand-600' }}">
+      {{ cs.client }}{% if cs.industry %} · {{ cs.industry }}{% endif %}
+    </p>
+    <h3 class="mt-3 text-lg {{ 'text-white' if dark }}">{{ cs.title }}</h3>
+    <p class="mt-2 flex-1 leading-relaxed {{ 'text-slate-300' if dark else 'text-slate-600' }}">{{ cs.summary }}</p>
+    <span class="mt-5 inline-flex items-center gap-1 text-sm font-semibold {{ 'text-accent-300' if dark else 'text-brand-600' }}">
+      {{ link_text }} {{ icon("arrow-right", "size-4 transition group-hover:translate-x-0.5") }}
+    </span>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}

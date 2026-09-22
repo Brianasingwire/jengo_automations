@@ -2,6 +2,16 @@
 @import "tailwindcss" source(none);
 @source "../../templates";
 @source "../../*.py";
+@source "../js";
+
+/* Self-hosted Latin subset (SIL OFL, see ../fonts/OFL.txt); keep in sync with the preload in base.html. */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+}
 
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -108,8 +118,4 @@
     opacity: 1;
     transform: none;
   }
-}
-
-[x-cloak] {
-  display: none !important;
 }

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, SelectField, StringField, TextAreaField
+from wtforms import EmailField, HiddenField, SelectField, StringField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length, Optional
 
 from .leads import BUDGET_OPTIONS, SERVICE_OPTIONS, TIMELINE_OPTIONS
@@ -31,3 +31,14 @@ class ContactForm(FlaskForm):
     )
     # Honeypot: hidden from humans; bots that fill it are silently dropped.
     website = StringField("Leave this field empty")
+    # Signed render timestamp for the minimum-fill-time check (see routes.contact).
+    started = HiddenField()
+
+
+# Fields safe to log when a submission can't be forwarded, with their max lengths.
+LOGGABLE_FIELDS = {"name": 120, "email": 254, "service_type": 40, "budget": 40, "timeline": 40, "message": 4000}
+
+
+def form_snapshot(formdata):
+    """Known fields from raw POST data, truncated, for logging a lead that couldn't be sent."""
+    return {name: (formdata.get(name) or "")[:limit] for name, limit in LOGGABLE_FIELDS.items()}

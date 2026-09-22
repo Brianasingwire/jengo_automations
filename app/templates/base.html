@@ -1,7 +1,7 @@
 {#- Pages override these; they are declared here (unrendered) so self.title()/self.description() always resolve. -#}
-{%- if false %}{% block title %}{% endblock %}{% block description %}Jengo builds AI automations, workflow integrations and AI agents that save growing businesses in Uganda and around the world hours every week.{% endblock %}{% endif -%}
+{%- if false %}{% block title %}{% endblock %}{% block description %}{{ c.home.description }}{% endblock %}{% endif -%}
 {%- set page_title = self.title() | trim -%}
-{%- set full_title = page_title ~ " | " ~ site_name if page_title else site_name ~ " | AI Automation Agency in Kampala, Uganda & Worldwide" -%}
+{%- set full_title = page_title ~ " | " ~ site_name if page_title else c.site.home_title -%}
 {%- set description = self.description() | trim -%}
 {%- set canonical = site_url ~ request.path -%}
 <!doctype html>
@@ -26,20 +26,20 @@
   <meta name="theme-color" content="#0b1022">
 
   <link rel="icon" href="{{ asset_url('img/favicon.svg') }}" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap">
+  {# Must match the url() in input.css exactly (no ?v=), or the font downloads twice. #}
+  <link rel="preload" href="{{ url_for('static', filename='fonts/plus-jakarta-sans-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ asset_url('css/site.css') }}">
 
-  <script nonce="{{ csp_nonce }}">if ("IntersectionObserver" in window) document.documentElement.classList.add("js")</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.17.4/dist/cdn.min.js" integrity="sha384-5/joNqFnRyVWzXp99bHot6RHG+EksGp+USSgZwPar7T9SD9PKKER37n/8bXBAZGd" crossorigin="anonymous"></script>
+  {# Hides .reveal sections until site.js fades them in. If site.js never runs, show them anyway. #}
+  <script nonce="{{ csp_nonce }}">(function (d) { if (!("IntersectionObserver" in window)) return; d.classList.add("js"); setTimeout(function () { if (!window.jengoSiteJs) d.classList.remove("js"); }, 2500); })(document.documentElement)</script>
+  <script defer src="{{ asset_url('js/site.js') }}"></script>
 
   <script type="application/ld+json">
   {{ {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": site_name,
-    "description": "Kampala-based AI automation agency building workflow automation, AI agents and lead-generation systems for businesses in Uganda, East Africa, the US, UK, Europe and Australia.",
+    "description": c.site.search_engine_summary,
     "url": site_url,
     "email": contact_email,
     "logo": site_url ~ url_for('static', filename='img/favicon.svg'),
@@ -61,17 +61,5 @@
 
   {% include "partials/_footer.html" %}
 
-  <script nonce="{{ csp_nonce }}">
-    // Fade .reveal elements in as they scroll into view (see input.css).
-    (function () {
-      if (!("IntersectionObserver" in window)) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
-        });
-      }, { rootMargin: "0px 0px -8% 0px" });
-      document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-    })();
-  </script>
 </body>
 </html>

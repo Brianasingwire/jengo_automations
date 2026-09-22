@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Privacy Policy{% endblock %}
+{% block description %}How Jengo collects, uses and protects the personal data you share through our website and contact form, and how to exercise your rights.{% endblock %}
+
+{#
+  Describes what the code actually does (app/routes.py, app/leads.py). If the lead
+  pipeline or its tools change, update this page. Have it reviewed before relying on it.
+#}
+{% block content %}
+<section class="relative overflow-hidden bg-ink-900">
+  <div class="container-page relative py-16 sm:py-20">
+    <p class="eyebrow !text-brand-300">Legal</p>
+    <h1 class="mt-3 text-4xl text-white sm:text-5xl">Privacy policy</h1>
+    <p class="mt-4 text-slate-300">Last updated: 22 September 2026</p>
+  </div>
+</section>
+
+<section class="section !pt-14">
+  <div class="container-page max-w-3xl space-y-10 leading-relaxed text-slate-700">
+    <div>
+      <h2 class="text-2xl">Who we are</h2>
+      <p class="mt-3">
+        {{ site_name }} is an AI automation agency based in Kampala, Uganda. We are responsible for the personal data you share through this website.
+        Questions about this policy or your data can go to <a class="font-semibold text-brand-600" href="mailto:{{ contact_email }}">{{ contact_email }}</a>.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">What we collect</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5">
+        <li><strong>What you enter in the contact form:</strong> your name, email address, the service you're interested in, your budget range, your timeline and any message you write.</li>
+        <li><strong>How you found us:</strong> the first page you visited, the website that linked you here (without any query string), and campaign tags in the link, if any (for example <code>utm_source</code>).</li>
+        <li><strong>Technical data:</strong> like any website, our hosting provider records your IP address and basic request details in server logs. We use your IP address to limit spam and abuse of the contact form.</li>
+        <li><strong>Enquiries that couldn't be delivered:</strong> if a technical problem stops your enquiry reaching our systems, a copy of it (your name, email, choices and message) is recorded in our hosting provider's server logs, so we can still reply to you.</li>
+      </ul>
+      <p class="mt-3">We don't use analytics, advertising or tracking cookies, and we don't load third-party trackers.</p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">How we use it</h2>
+      <p class="mt-3">
+        We use your enquiry to reply to you, to understand your needs, and to prioritise enquiries so we can respond quickly.
+        Enquiries are scored automatically on the service, budget and timeline you choose. The score only affects how quickly and in what order we follow up.
+        It never decides anything about you on its own. We process this data because you asked us to contact you, and because we have a legitimate interest in responding to business enquiries.
+      </p>
+      <p class="mt-3">We don't sell your data, and we don't add you to a mailing list.</p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">Who we share it with</h2>
+      <p class="mt-3">
+        We use trusted service providers that process data on our behalf, only to run this website and handle enquiries:
+      </p>
+      <ul class="mt-3 list-disc space-y-2 pl-5">
+        <li>our website hosting provider;</li>
+        <li>Make.com, which receives your enquiry and passes it through our lead-handling workflow;</li>
+        <li>the business email, messaging and document tools we use to record and follow up on enquiries.</li>
+      </ul>
+      <p class="mt-3">
+        Some of these providers store data outside Uganda, including in the European Union and the United States.
+        Where required, we rely on appropriate safeguards for these transfers.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">Cookies</h2>
+      <p class="mt-3">
+        We use a single first-party session cookie. It protects the contact form against forged submissions, remembers how you arrived at the site, and shows your name on the thank-you page.
+        It is deleted when you close your browser. We don't use any other cookies.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">How long we keep it</h2>
+      <p class="mt-3">
+        We keep enquiry data for as long as we need it to respond to you and manage any work that follows, then delete it.
+        Copies in server logs are deleted automatically when our hosting provider's log retention period ends.
+        You can ask us to delete your data sooner at any time.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">Your rights</h2>
+      <p class="mt-3">
+        Depending on where you live, you have rights under laws including Uganda's Data Protection and Privacy Act 2019, the EU GDPR and the UK GDPR.
+        These can include the right to access your data, correct it, delete it, object to or restrict how we use it, and receive a copy of it.
+        To exercise any of these rights, email <a class="font-semibold text-brand-600" href="mailto:{{ contact_email }}">{{ contact_email }}</a>.
+        You also have the right to complain to your local data protection authority, for example Uganda's Personal Data Protection Office or the UK's ICO.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl">Changes to this policy</h2>
+      <p class="mt-3">If we change how we handle personal data, we'll update this page and the date at the top.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
